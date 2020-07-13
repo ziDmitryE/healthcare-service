@@ -3,6 +3,7 @@ package ru.netology.patient.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ public class PatientInfoFileRepository implements PatientInfoRepository {
     private final ObjectMapper mapper;
 
     public PatientInfoFileRepository(File repoFile, ObjectMapper mapper) {
+        createRepoFileIfNotExists(repoFile);
         this.repoFile = repoFile;
         this.mapper = mapper;
     }
@@ -71,5 +73,15 @@ public class PatientInfoFileRepository implements PatientInfoRepository {
     @Override
     public PatientInfo update(PatientInfo patientInfo) {
         throw new RuntimeException("Not implemented");
+    }
+
+    private static void createRepoFileIfNotExists(File repoFile) {
+        if (!Files.exists(repoFile.toPath())) {
+            try {
+                Files.createFile(repoFile.toPath());
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
     }
 }

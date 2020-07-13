@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import ru.netology.patient.entity.*;
 import ru.netology.patient.repository.PatientInfoFileRepository;
 import ru.netology.patient.repository.PatientInfoRepository;
+import ru.netology.patient.service.MedicalService;
+import ru.netology.patient.service.MedicalServiceImpl;
 
 public class Main {
 
@@ -33,9 +35,8 @@ public class Main {
                 new HealthInfo(new BigDecimal("36.6"), new BloodPressure(125, 78)))
         );
 
-        System.out.println(id1);
-        System.out.println(id2);
-        PatientInfo patientInfo = patientInfoRepository.getById(id1);
-        System.out.println(patientInfo);
+        MedicalService medicalService = new MedicalServiceImpl(patientInfoRepository);
+        BloodPressure currentPressue = new BloodPressure(60, 120);
+        medicalService.checkBloodPressure(id1, currentPressue);
     }
 }
