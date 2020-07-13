@@ -36,7 +36,12 @@ public class Main {
         );
 
         MedicalService medicalService = new MedicalServiceImpl(patientInfoRepository);
-        BloodPressure currentPressue = new BloodPressure(60, 120);
-        medicalService.checkBloodPressure(id1, currentPressue);
+
+        //run service
+        BloodPressure currentPressure = new BloodPressure(60, 120);
+        medicalService.checkBloodPressure(id1, currentPressure);
+
+        BigDecimal currentTemperature = new BigDecimal("37.9");
+        medicalService.checkTemperature(id1, currentTemperature);
     }
 }
