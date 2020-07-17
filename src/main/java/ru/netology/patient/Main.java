@@ -12,8 +12,10 @@ import java.time.LocalDate;
 import ru.netology.patient.entity.*;
 import ru.netology.patient.repository.PatientInfoFileRepository;
 import ru.netology.patient.repository.PatientInfoRepository;
-import ru.netology.patient.service.MedicalService;
-import ru.netology.patient.service.MedicalServiceImpl;
+import ru.netology.patient.service.alert.SendAlertService;
+import ru.netology.patient.service.alert.SendAlertServiceImpl;
+import ru.netology.patient.service.medical.MedicalService;
+import ru.netology.patient.service.medical.MedicalServiceImpl;
 
 public class Main {
 
@@ -35,7 +37,8 @@ public class Main {
                 new HealthInfo(new BigDecimal("36.6"), new BloodPressure(125, 78)))
         );
 
-        MedicalService medicalService = new MedicalServiceImpl(patientInfoRepository);
+        SendAlertService alertService = new SendAlertServiceImpl();
+        MedicalService medicalService = new MedicalServiceImpl(patientInfoRepository, alertService);
 
         //run service
         BloodPressure currentPressure = new BloodPressure(60, 120);
